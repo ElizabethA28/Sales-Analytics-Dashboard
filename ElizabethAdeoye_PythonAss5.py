@@ -63,7 +63,7 @@ if uploaded_file is not None:
 
     #Plot bar chart
     fig, ax = plt.subplots()
-    rating_counts.plot(kind="bar", ax=ax, color="blue", edgecolor="black")
+    rating_counts.plot(kind="bar", color="blue", edgecolor="black")
     ax.set_title("Service Satisfaction Distribution")
     ax.set_xlabel("Satisfaction Rating (1-5)")
     ax.set_ylabel("Number of Customers")
