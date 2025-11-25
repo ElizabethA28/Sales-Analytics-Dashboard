@@ -6,18 +6,25 @@ import matplotlib.pyplot as plt
 st.title("Sales Analytics Dashboard")
 
 #File uploader
-uploaded_file = st.file_uploader("Upload your sales dataset (CSV)", type=["csv"])
+uploaded_file = st.file_uploader("Upload your dataset (CSV or Excel file)", type=["csv", "xlsx"])
 
 if uploaded_file is not None:
-    #Load dataset
-    df = pd.read_csv(uploaded_file)
+    #Read the file depending on the type
+    if uploaded_file.name.endswith(".csv"):
+        df = pd.read_csv(uploaded_file)
+        st.success("File uploaded successfully!")
+    else:
+        df = pd.read_excel(uploaded_file)
+        st.error("Incorrect file type. Please upload a CSV or xlsx file.")
+        df = None
+
 
     #Group by Category and calculate total sales
     sales_summary = df.groupby("Category")["Sales"].sum()
 
     #Plot bar chart using Matplotlib
     fig, ax = plt.subplots()
-    sales_summary.plot(kind="bar", ax=ax, color=["orange", "green"])
+    sales_summary.plot(kind="bar", ax=ax, color=["blue", "green"])
     ax.set_title("Sales Performance: Juices vs Smoothies")
     ax.set_xlabel("Product Category")
     ax.set_ylabel("Total Sales ($)")
@@ -70,18 +77,18 @@ if uploaded_file is not None:
     ax.set_ylabel("Number of Customers")
     ax.set_xticklabels(rating_counts.index, rotation=0)
 
-    # Step 6: Display chart in Streamlit
+    #Display chart in Streamlit
     st.pyplot(fig) 
 
 #Q4
 
-    # Convert Date Ordered to datetime for time-series tab
+    #Convert Date Ordered to datetime for time-series tab
     df["Date Ordered"] = pd.to_datetime(df["Date Ordered"], errors="coerce")
 
-    # Create tabs
+    #Create tabs
     tab1, tab2, tab3 = st.tabs(["Category Sales", "Sales Over Time", "Satisfaction Ratings"])
 
-    # --- Tab 1: Category Sales Comparison ---
+    #Tab 1: Category Sales Comparison
     with tab1:
         st.subheader("Category Sales Comparison")
         category_sales = df.groupby("Category")["Sales"].sum()
@@ -92,7 +99,7 @@ if uploaded_file is not None:
         ax1.set_ylabel("Total Sales ($)")
         st.pyplot(fig1)
 
-    # --- Tab 2: Sales Over Time ---
+    #Tab 2: Sales Over Time
     with tab2:
         st.subheader("Sales Over Time")
         daily_sales = df.groupby("Date Ordered")["Sales"].sum()
@@ -105,7 +112,7 @@ if uploaded_file is not None:
         st.pyplot(fig2)
 
 
-    # --- Tab 3: Satisfaction Ratings ---
+    #Tab 3: Satisfaction Ratings
     with tab3:
         st.subheader("Service Satisfaction Ratings")
         df = df.dropna(subset=["Service Satisfaction Rating"])
