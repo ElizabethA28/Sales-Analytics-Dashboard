@@ -3,6 +3,8 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 
+st.title("Sales Analytics Dashboard")
+
 #File uploader
 uploaded_file = st.file_uploader("Upload your sales dataset (CSV)", type=["csv"])
 
@@ -11,7 +13,7 @@ if uploaded_file is not None:
     df = pd.read_csv(uploaded_file)
 
     #Group by Category and calculate total sales
-    sales_summary = df.groupby("Category")["Sales"].sum()
+    sales_summary = df.groupby("Category")["$Sales"].sum()
 
     #Plot bar chart using Matplotlib
     fig, ax = plt.subplots()
@@ -39,7 +41,7 @@ if uploaded_file is not None:
     df["Date Ordered"] = pd.to_datetime(df["Date Ordered"])
 
     #Group by Date Ordered and compute total sales
-    daily_sales = df.groupby("Date Ordered")["Sales"].sum()
+    daily_sales = df.groupby("Date Ordered")["$Sales"].sum()
 
     #Plot line chart using Matplotlib
     fig, ax = plt.subplots(figsize=(10, 5))
@@ -82,7 +84,7 @@ if uploaded_file is not None:
     # --- Tab 1: Category Sales Comparison ---
     with tab1:
         st.subheader("Category Sales Comparison")
-        category_sales = df.groupby("Category")["Sales"].sum()
+        category_sales = df.groupby("Category")["$Sales"].sum()
         fig1, ax1 = plt.subplots()
         category_sales.plot(kind="bar", ax=ax1, color=["orange", "green"])
         ax1.set_title("Sales Performance: Juices vs Smoothies")
@@ -93,7 +95,7 @@ if uploaded_file is not None:
     # --- Tab 2: Sales Over Time ---
     with tab2:
         st.subheader("Sales Over Time")
-        daily_sales = df.groupby("Date Ordered")["Sales"].sum()
+        daily_sales = df.groupby("Date Ordered")["$Sales"].sum()
         fig2, ax2 = plt.subplots(figsize=(10, 5))
         ax2.plot(daily_sales.index, daily_sales.values, marker="o", linestyle="-", color="blue")
         ax2.set_title("Daily Sales Trend")
