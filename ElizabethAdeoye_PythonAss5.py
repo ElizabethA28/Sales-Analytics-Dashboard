@@ -33,14 +33,6 @@ if uploaded_file is not None:
     #Display chart in Streamlit
     st.pyplot(fig)
 
-    #Interpretation
-    if sales_summary["Juices"] > sales_summary["Smoothies"]:
-        st.write("Juices generated higher total sales compared to Smoothies.")
-    elif sales_summary["Juices"] < sales_summary["Smoothies"]:
-        st.write("Smoothies outperformed Juices in total sales.")
-    else:
-        st.write("Juices and Smoothies achieved equal sales performance.")
-
 
 #Q2
 
@@ -63,7 +55,7 @@ if uploaded_file is not None:
 
 #Q3
 
-   #Handle missing values (drop or fill)
+   #missing values (drop or fill)
     df = df.dropna(subset=["Service Satisfaction Rating"])
 
     #Count ratings (1–5)
@@ -71,7 +63,7 @@ if uploaded_file is not None:
 
     #Plot bar chart
     fig, ax = plt.subplots()
-    rating_counts.plot(kind="bar", ax=ax, color="skyblue", edgecolor="black")
+    rating_counts.plot(kind="bar", ax=ax, color="blue", edgecolor="black")
     ax.set_title("Service Satisfaction Distribution")
     ax.set_xlabel("Satisfaction Rating (1-5)")
     ax.set_ylabel("Number of Customers")
