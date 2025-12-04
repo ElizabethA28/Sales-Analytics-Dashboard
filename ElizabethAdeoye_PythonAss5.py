@@ -8,6 +8,8 @@ st.title("Sales Analytics Dashboard")
 #File uploader
 uploaded_file = st.file_uploader("Upload your dataset (CSV or Excel file)", type=["csv", "xlsx"])
 
+df = None
+
 if uploaded_file is not None:
     # Read the file depending on the type
     if uploaded_file.name.endswith(".csv"):
