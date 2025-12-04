@@ -9,14 +9,14 @@ st.title("Sales Analytics Dashboard")
 uploaded_file = st.file_uploader("Upload your dataset (CSV or Excel file)", type=["csv", "xlsx"])
 
 if uploaded_file is not None:
-    #Read the file depending on the type
+    # Read the file depending on the type
     if uploaded_file.name.endswith(".csv"):
         df = pd.read_csv(uploaded_file)
-        st.success("File uploaded successfully!")
     else:
         df = pd.read_excel(uploaded_file)
-        st.error("Incorrect file type. Please upload a CSV or xlsx file.")
-        df = None
+
+    st.success("File uploaded successfully!")
+      
 
 
     #Group by Category and calculate total sales
