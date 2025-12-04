@@ -12,10 +12,19 @@ if uploaded_file is not None:
     # Read the file depending on the type
     if uploaded_file.name.endswith(".csv"):
         df = pd.read_csv(uploaded_file)
+        st.success("CSV file uploaded successfully!")
+    elif uploaded_file.name.endswith(".xlsx"):
+        try:
+            df = pd.read_excel(uploaded_file, engine="openpyxl")
+            st.success("Excel file uploaded successfully!")
+        except ImportError:
+            st.error("Missing dependency: openpyxl.")
+            df = None
     else:
-        df = pd.read_excel(uploaded_file)
+        st.error("Incorrect file type. Please upload a CSV or XLSX file.")
+        df = None
 
-    st.success("File uploaded successfully!")
+
       
 
 
