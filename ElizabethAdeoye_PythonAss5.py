@@ -21,44 +21,19 @@ if uploaded_file is not None:
 
 
     #Group by Category and calculate total sales
-   # sales_summary = df.groupby("Category")["$ Sales"].sum()
+    sales_summary = df.groupby("Category")["$ Sales"].sum()
 
     #Plot bar chart using Matplotlib
-   # fig, ax = plt.subplots()
-   # sales_summary.plot(kind="bar", ax=ax, color=["blue", "green"])
-   # ax.set_title("Sales Performance: Juices vs Smoothies")
-   # ax.set_xlabel("Product Category")
-   # ax.set_ylabel("Total Sales ($)")
-    ##ax.set_xticklabels(sales_summary.index, rotation=0)
+    fig, ax = plt.subplots()
+    sales_summary.plot(kind="bar", ax=ax, color=["blue", "green"])
+    ax.set_title("Sales Performance: Juices vs Smoothies")
+    ax.set_xlabel("Product Category")
+    ax.set_ylabel("Total Sales ($)")
+    ax.set_xticklabels(sales_summary.index, rotation=0)
 
-    #Display chart in Streamlit
-    #st.pyplot(fig)
+   #Display chart in Streamlit
+    st.pyplot(fig)
 
-
-    # Clean up column names to avoid issues with spaces or symbols
-    df.columns = df.columns.str.strip()
-    df.columns = df.columns.str.replace(r"\$", "", regex=True)  # remove dollar signs
-    df.columns = df.columns.str.replace(" ", "_")               # replace spaces with underscores
-
-    # Now you can reference "Sales" instead of "$ Sales"
-    if "Category" in df.columns and "Sales" in df.columns:
-        # Group by Category and calculate total sales
-        sales_summary = df.groupby("Category")["Sales"].sum()
-
-        # Plot bar chart using Matplotlib
-        fig, ax = plt.subplots()
-        sales_summary.plot(kind="bar", ax=ax, color=["blue", "green"])
-        ax.set_title("Sales Performance: Juices vs Smoothies")
-        ax.set_xlabel("Product Category")
-        ax.set_ylabel("Total Sales ($)")
-        ax.set_xticklabels(sales_summary.index, rotation=0)
-
-        # Display chart in Streamlit
-        st.pyplot(fig)
-    else:
-        st.error("The uploaded file must contain 'Category' and 'Sales' columns.")
-else:
-    st.error("No valid data frame available. Please upload a CSV or XLSX file.")
 
 
 #Q2
