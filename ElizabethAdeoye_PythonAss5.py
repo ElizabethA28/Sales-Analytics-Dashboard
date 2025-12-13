@@ -8,26 +8,15 @@ st.title("Sales Analytics Dashboard")
 #File uploader
 uploaded_file = st.file_uploader("Upload your dataset (CSV or Excel file)", type=["csv", "xlsx"])
 
-df = None
 
 if uploaded_file is not None:
     # Read the file depending on the type
     if uploaded_file.name.endswith(".csv"):
         df = pd.read_csv(uploaded_file)
-        st.success("CSV file uploaded successfully!")
-    elif uploaded_file.name.endswith(".xlsx"):
-        try:
-            df = pd.read_excel(uploaded_file, engine="openpyxl")
-            st.success("Excel file uploaded successfully!")
-        except ImportError:
-            st.error("Missing dependency: openpyxl.")
-            df = None
     else:
-        st.error("Incorrect file type. Please upload a CSV or XLSX file.")
-        df = None
+        df = pd.read_excel(uploaded_file)
 
-
-      
+    st.success("File uploaded successfully!")
 
 
     #Group by Category and calculate total sales
