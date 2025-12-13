@@ -13,7 +13,6 @@ if uploaded_file is not None:
     # Read the file depending on the type
     if uploaded_file.name.endswith(".csv"):
         df = pd.read_csv(uploaded_file, encoding="utf-8", errors="replace")
-        # If utf-8 fails, try: df = pd.read_csv(uploaded_file, encoding="latin1")
     else:
         df = pd.read_excel(uploaded_file, engine="openpyxl")
 
