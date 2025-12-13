@@ -19,6 +19,7 @@ if uploaded_file is not None:
     st.success("File uploaded successfully!")
 
 
+
     #Group by Category and calculate total sales
    # sales_summary = df.groupby("Category")["$ Sales"].sum()
 
@@ -33,7 +34,7 @@ if uploaded_file is not None:
     #Display chart in Streamlit
     #st.pyplot(fig)
 
-if df is not None:
+
     # Clean up column names to avoid issues with spaces or symbols
     df.columns = df.columns.str.strip()
     df.columns = df.columns.str.replace(r"\$", "", regex=True)  # remove dollar signs
